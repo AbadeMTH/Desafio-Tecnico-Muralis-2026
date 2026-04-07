@@ -1,4 +1,7 @@
 package com.matheus.desafiotecnicomuralis.repository.cliente;
 
-public interface ClienteRepository {
+import com.matheus.desafiotecnicomuralis.entity.cliente.ClienteEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ClienteRepository extends JpaRepository<ClienteEntity, Long> {
 }
