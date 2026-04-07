@@ -1,4 +1,7 @@
 package com.matheus.desafiotecnicomuralis.repository.contato;
 
-public interface ContatoRepository {
+import com.matheus.desafiotecnicomuralis.entity.contato.ContatoEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ContatoRepository extends JpaRepository<ContatoEntity, Long> {
 }
