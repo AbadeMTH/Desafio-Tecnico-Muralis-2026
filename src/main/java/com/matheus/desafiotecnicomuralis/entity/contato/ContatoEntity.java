@@ -1,6 +1,6 @@
-package com.matheus.DesafioTecnicoMuralis2026.entity.contato;
+package com.matheus.desafiotecnicomuralis.entity.contato;
 
-import com.matheus.DesafioTecnicoMuralis2026.entity.cliente.ClienteEntity;
+import com.matheus.desafiotecnicomuralis.entity.cliente.ClienteEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +25,7 @@ public class ContatoEntity {
 
     private String observacao;
 
-    @ManyToOne(targetEntity = ClienteEntity.class)
-    private ClienteEntity cliente_id;
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private ClienteEntity cliente;
 }

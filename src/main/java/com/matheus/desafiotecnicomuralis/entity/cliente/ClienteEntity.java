@@ -1,6 +1,7 @@
-package com.matheus.DesafioTecnicoMuralis2026.entity.cliente;
+package com.matheus.desafiotecnicomuralis.entity.cliente;
 
-import com.matheus.DesafioTecnicoMuralis2026.entity.contato.ContatoEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.matheus.desafiotecnicomuralis.entity.contato.ContatoEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,8 +28,10 @@ public class ClienteEntity {
 
     @Column(nullable = false)
     private LocalDate data_nascimento;
+
     private String endereco;
 
-    @OneToMany
+    @OneToMany(mappedBy = "cliente")
+    @JsonIgnore
     private List<ContatoEntity> listaContatos;
 }
