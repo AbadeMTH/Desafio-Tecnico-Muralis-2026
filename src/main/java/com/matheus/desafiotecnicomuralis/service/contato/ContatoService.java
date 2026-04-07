@@ -7,12 +7,12 @@ import com.matheus.desafiotecnicomuralis.repository.contato.ContatoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collector;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class ContatoService {
-    //Injetando repository
+    //Injetando repository e mapper
     private final ContatoRepository contatoRepository;
     private final ContatoMapper contatoMapper;
 
@@ -21,10 +21,75 @@ public class ContatoService {
         this.contatoMapper = contatoMapper;
     }
 
+    /**
+     * Lista todos contatos no banco de dados
+     * @return Lista de ContatoDTO
+     */
     public List<ContatoDTO> listarContatos(){
         List<ContatoEntity> listaContatosEntity = contatoRepository.findAll();
         return listaContatosEntity.stream()
                 .map(contatoMapper::map)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Cria um contato CASO NÃO EXISTA, verifica existência pelo nome
+     * @param contatoDTO ContatoDTO - RequestBody
+     * @return Caso concluiu retorna o Contato, caso contrário retorna null
+     */
+    public ContatoDTO criarContato(ContatoDTO contatoDTO){
+        Optional<ContatoEntity> contatoExisteOuNao = contatoRepository.findByNome(contatoDTO.getNome());
+        if(contatoExisteOuNao.isEmpty()){
+            ContatoEntity novoContato = contatoMapper.map(contatoDTO);
+            novoContato = contatoRepository.save(novoContato);
+            return contatoMapper.map(novoContato);
+        }
+        return null;
+    }
+
+    /**
+     * Altera um contato CASO EXISTA, verifica existência pelo id
+     * @param id Long - PathVariable
+     * @param contatoDTO ContatoDTO - RequestBody
+     * @return Caso alterou com sucesso retorna o Contato, caso contrário retorna null
+     */
+    public ContatoDTO alterarContato(Long id, ContatoDTO contatoDTO){
+        ContatoEntity contatoParaAlterar = contatoRepository.findById(id).orElse(null);
+
+        if(contatoParaAlterar != null){
+            if(contatoDTO.getNome() != null){
+                contatoParaAlterar.setNome(contatoDTO.getNome());
+            }
+
+            if(contatoDTO.getValor() != null){
+                contatoParaAlterar.setValor(contatoDTO.getValor());
+            }
+
+            if(contatoDTO.getObservacao() != null){
+                contatoParaAlterar.setObservacao(contatoDTO.getObservacao());
+            }
+
+            if(contatoDTO.getTipo() != null){
+                contatoParaAlterar.setTipo(contatoDTO.getTipo());
+            }
+
+            contatoParaAlterar = contatoRepository.save(contatoParaAlterar);
+            return contatoMapper.map(contatoParaAlterar);
+        }
+        return null;
+    }
+
+    /**
+     * Deleta um contato pelo id CASO EXISTA, verifica existência pelo id
+     * @param id Long - PathVariable
+     * @return True se deletou, false se não deletou
+     */
+    public boolean deletarContato(Long id){
+        Optional<ContatoEntity> contatoExisteOuNao = contatoRepository.findById(id);
+        if(contatoExisteOuNao.isPresent()){
+            contatoRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

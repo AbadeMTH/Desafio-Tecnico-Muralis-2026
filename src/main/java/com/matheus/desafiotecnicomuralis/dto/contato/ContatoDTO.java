@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class ContatoDTO {
     private Long id;
     private String tipo;
+    private String nome;
     private String valor;
     private String observacao;
     private ClienteEntity cliente;

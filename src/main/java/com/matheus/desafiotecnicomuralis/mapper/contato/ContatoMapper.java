@@ -10,6 +10,7 @@ public class ContatoMapper {
         return new ContatoEntity(
             contatoDTO.getId(),
             contatoDTO.getTipo(),
+            contatoDTO.getNome(),
             contatoDTO.getValor(),
             contatoDTO.getObservacao(),
             contatoDTO.getCliente()
@@ -20,6 +21,7 @@ public class ContatoMapper {
         return new ContatoDTO(
             contatoEntity.getId(),
             contatoEntity.getTipo(),
+            contatoEntity.getNome(),
             contatoEntity.getValor(),
             contatoEntity.getObservacao(),
             contatoEntity.getCliente()
