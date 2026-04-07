@@ -9,6 +9,7 @@ import com.matheus.desafiotecnicomuralis.repository.cliente.ClienteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,5 +27,45 @@ public class ClienteService {
         return listaClientesEntity.stream()
                 .map(clienteMapper::map)
                 .collect(Collectors.toList());
+    }
+
+    public ClienteDTO criarCliente(ClienteDTO clienteDTO){
+        Optional<ClienteDTO> clienteExisteOuNao = clienteRepository.findByCpf(clienteDTO.getCpf());
+        if(clienteExisteOuNao.isEmpty()){
+            ClienteEntity novoCliente = clienteMapper.map(clienteDTO);
+            novoCliente = clienteRepository.save(novoCliente);
+            return clienteMapper.map(novoCliente);
+        }
+        return null;
+    }
+
+    public ClienteDTO alterarCliente(Long id, ClienteDTO clienteDTO){
+        ClienteEntity clienteParaAlterar = clienteRepository.findById(id).orElse(null);
+
+        if(clienteParaAlterar != null){
+            if(clienteDTO.getData_nascimento() != null){
+                clienteParaAlterar.setData_nascimento(clienteDTO.getData_nascimento());
+            }
+
+            if(clienteDTO.getEndereco() != null){
+                clienteParaAlterar.setEndereco(clienteDTO.getEndereco());
+            }
+
+            if(clienteDTO.getCpf() != null){
+                clienteParaAlterar.setCpf(clienteDTO.getCpf());
+            }
+
+            if(clienteDTO.getNome() != null){
+                clienteParaAlterar.setNome(clienteDTO.getNome());
+            }
+            clienteParaAlterar = clienteRepository.save(clienteParaAlterar);
+            return clienteMapper.map(clienteParaAlterar);
+        }
+        return null;
+    }
+
+    public boolean deletarCliente(Long id){
+        Optional<ClienteEntity> clienteExisteOuNao = clienteRepository.findById(id);
+
     }
 }
