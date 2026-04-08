@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class ClienteService {
+    //Injetando as dependencias
     private final ClienteRepository clienteRepository;
     private final ClienteMapper clienteMapper;
 
@@ -22,6 +23,10 @@ public class ClienteService {
         this.clienteMapper = clienteMapper;
     }
 
+    /**
+     * Lista todos os Clientes no banco de dados
+     * @return Lista de ClienteDTO
+     */
     public List<ClienteDTO> listarClientes(){
         List<ClienteEntity> listaClientesEntity = clienteRepository.findAll();
         return listaClientesEntity.stream()
@@ -29,6 +34,11 @@ public class ClienteService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Lista Cliente por ID
+     * @param id Long - PathVariable
+     * @return ClienteDTO
+     */
     public ClienteDTO listarClientePorId(Long id){
         ClienteEntity clientePorId = clienteRepository.findById(id).orElse(null);
 
@@ -38,15 +48,11 @@ public class ClienteService {
         return null;
     }
 
-    public ClienteDTO listarClientePorCPF(String cpf){
-        ClienteEntity clientePorCPF = clienteRepository.findByCpf(cpf).orElse(null);
-
-        if(clientePorCPF != null){
-            return clienteMapper.map(clientePorCPF);
-        }
-        return null;
-    }
-
+    /**
+     * Cria um Cliente CASO ELE EXISTA, verifica existência pelo CPF
+     * @param clienteDTO ClienteDTO - RequestBody
+     * @return ClienteDTO
+     */
     public ClienteDTO criarCliente(ClienteDTO clienteDTO){
         Optional<ClienteEntity> clienteExisteOuNao = clienteRepository.findByCpf(clienteDTO.getCpf());
         if(clienteExisteOuNao.isEmpty()){
@@ -57,6 +63,12 @@ public class ClienteService {
         return null;
     }
 
+    /**
+     * Altera um Cliente CASO EXISTA, verifica existência pelo id
+     * @param id Long - PathVariable
+     * @param clienteDTO ClienteDTO - RequestBody
+     * @return ClienteDTO
+     */
     public ClienteDTO alterarCliente(Long id, ClienteDTO clienteDTO){
         ClienteEntity clienteParaAlterar = clienteRepository.findById(id).orElse(null);
 
@@ -82,6 +94,11 @@ public class ClienteService {
         return null;
     }
 
+    /**
+     * Deleta Cliente pelo id CASO EXISTA, verifica existência pelo id
+     * @param id
+     * @return
+     */
     public boolean deletarCliente(Long id){
         Optional<ClienteEntity> clienteExisteOuNao = clienteRepository.findById(id);
         if(clienteExisteOuNao.isPresent()){
