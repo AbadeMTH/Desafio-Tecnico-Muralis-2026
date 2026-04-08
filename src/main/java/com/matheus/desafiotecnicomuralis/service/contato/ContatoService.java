@@ -26,21 +26,25 @@ public class ContatoService {
     }
 
     /**
-     * Lista todos contatos no banco de dados
+     * Lista todos Contatos de um Cliente CASO ELE EXISTA, verifica existência pelo cliente id
+     * @param clienteId Long - PathVariable
      * @return Lista de ContatoDTO
      */
-    public List<ContatoDTO> listarContatos(){
-        List<ContatoEntity> listaContatosEntity = contatoRepository.findAll();
-        return listaContatosEntity.stream()
+    public List<ContatoDTO> listarContatos(Long clienteId){
+        List<ContatoEntity> listaContatosEntity = contatoRepository.findAllByClienteId(clienteId).orElse(null);
+        if(listaContatosEntity != null){
+            return listaContatosEntity.stream()
                 .map(contatoMapper::map)
                 .collect(Collectors.toList());
+        }
+        return null;
     }
 
     /**
      * Cria um Contato CASO O CLIENTE EXISTA E O CONTATO NÃO EXISTA, verifica existência do Cliente pelo ID e verifica a existência do contado pelo Valor e ID do cliente para evitar duplicidade
      * @param contatoDTO ContatoDTO - RequestBody
      * @param id Long - PathVariable
-     * @return
+     * @return ContatoDTO
      */
     public ContatoDTO criarContato(ContatoDTO contatoDTO, Long id){
         Optional<ClienteEntity> clienteExisteOuNao = clienteRepository.findById(id);

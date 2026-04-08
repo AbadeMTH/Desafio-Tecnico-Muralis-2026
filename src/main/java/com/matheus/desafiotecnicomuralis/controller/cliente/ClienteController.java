@@ -22,9 +22,9 @@ public class ClienteController {
         return ResponseEntity.ok(clienteService.listarClientes());
     }
 
-    @GetMapping("/listar/{id}")
-    public ResponseEntity<?> listarClientePorId(@PathVariable Long id){
-        ClienteDTO clienteExisteOuNao = clienteService.listarClientePorId(id);
+    @PostMapping("/listarPorCPF")
+    public ResponseEntity<?> listarClientePorCPF(@RequestBody ClienteDTO clienteDTO){
+        ClienteDTO clienteExisteOuNao = clienteService.listarClienteCPF(clienteDTO);
         if(clienteExisteOuNao != null){
             return ResponseEntity.status(HttpStatus.FOUND).body(clienteExisteOuNao);
         }

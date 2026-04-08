@@ -35,15 +35,16 @@ public class ClienteService {
     }
 
     /**
-     * Lista Cliente por ID
-     * @param id Long - PathVariable
+     * Lista Cliente pelo CPF
+     * @param clienteDTO ClienteDTO - RequestBody
      * @return ClienteDTO
      */
-    public ClienteDTO listarClientePorId(Long id){
-        ClienteEntity clientePorId = clienteRepository.findById(id).orElse(null);
+    //TODO: trocar a filtragem pelo CPF RF05
+    public ClienteDTO listarClienteCPF(ClienteDTO clienteDTO){
+        ClienteEntity clientePorCPF = clienteRepository.findByCpf(clienteDTO.getCpf()).orElse(null);
 
-        if(clientePorId != null){
-            return clienteMapper.map(clientePorId);
+        if(clientePorCPF != null){
+            return clienteMapper.map(clientePorCPF);
         }
         return null;
     }
@@ -96,8 +97,8 @@ public class ClienteService {
 
     /**
      * Deleta Cliente pelo id CASO EXISTA, verifica existência pelo id
-     * @param id
-     * @return
+     * @param id Long - PathVariable
+     * @return boolean
      */
     public boolean deletarCliente(Long id){
         Optional<ClienteEntity> clienteExisteOuNao = clienteRepository.findById(id);
