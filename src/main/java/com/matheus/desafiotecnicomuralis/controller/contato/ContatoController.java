@@ -1,6 +1,7 @@
 package com.matheus.desafiotecnicomuralis.controller.contato;
 
 import com.matheus.desafiotecnicomuralis.dto.contato.ContatoDTO;
+import com.matheus.desafiotecnicomuralis.service.cliente.ClienteService;
 import com.matheus.desafiotecnicomuralis.service.contato.ContatoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import java.util.List;
 public class ContatoController {
     private final ContatoService contatoService;
 
-    public ContatoController(ContatoService contatoService){
+    public ContatoController(ContatoService contatoService, ClienteService clienteService){
         this.contatoService = contatoService;
     }
 
@@ -22,13 +23,13 @@ public class ContatoController {
         return ResponseEntity.ok(contatoService.listarContatos());
     }
 
-    @PostMapping("/criar")
-    public ResponseEntity<?> criarContato(@RequestBody ContatoDTO contatoDTO){
-        ContatoDTO contatoExisteOuNao = contatoService.criarContato(contatoDTO);
+    @PostMapping("/criar/{clienteId}")
+    public ResponseEntity<?> criarContato(@RequestBody ContatoDTO contatoDTO, @PathVariable Long clienteId){
+        ContatoDTO contatoExisteOuNao = contatoService.criarContato(contatoDTO, clienteId);
         if(contatoExisteOuNao != null){
             return ResponseEntity.status(HttpStatus.CREATED).body("Criado");
         }
-        return ResponseEntity.status(HttpStatus.FOUND).body("Contato ja existe");
+        return ResponseEntity.status(HttpStatus.FOUND).body("Contato ja existe ou cliente não existe");
     }
 
     @PatchMapping("/alterar/{id}")

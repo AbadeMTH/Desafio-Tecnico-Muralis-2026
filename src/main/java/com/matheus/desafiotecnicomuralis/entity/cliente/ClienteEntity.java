@@ -31,7 +31,7 @@ public class ClienteEntity {
 
     private String endereco;
 
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JsonIgnore
     private List<ContatoEntity> listaContatos;
 }

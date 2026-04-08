@@ -1,8 +1,10 @@
 package com.matheus.desafiotecnicomuralis.service.contato;
 
 import com.matheus.desafiotecnicomuralis.dto.contato.ContatoDTO;
+import com.matheus.desafiotecnicomuralis.entity.cliente.ClienteEntity;
 import com.matheus.desafiotecnicomuralis.entity.contato.ContatoEntity;
 import com.matheus.desafiotecnicomuralis.mapper.contato.ContatoMapper;
+import com.matheus.desafiotecnicomuralis.repository.cliente.ClienteRepository;
 import com.matheus.desafiotecnicomuralis.repository.contato.ContatoRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,12 @@ import java.util.stream.Collectors;
 public class ContatoService {
     //Injetando repository e mapper
     private final ContatoRepository contatoRepository;
+    private final ClienteRepository clienteRepository;
     private final ContatoMapper contatoMapper;
 
-    public ContatoService(ContatoRepository contatoRepository, ContatoMapper contatoMapper){
+    public ContatoService(ContatoRepository contatoRepository, ClienteRepository clienteRepository, ContatoMapper contatoMapper){
         this.contatoRepository = contatoRepository;
+        this.clienteRepository = clienteRepository;
         this.contatoMapper = contatoMapper;
     }
 
@@ -33,16 +37,23 @@ public class ContatoService {
     }
 
     /**
-     * Cria um contato CASO NÃO EXISTA, verifica existência pelo nome
+     * Cria um Contato CASO O CLIENTE EXISTA E O CONTATO NÃO EXISTA, verifica existência do Cliente pelo ID e verifica a existência do contado pelo Valor e ID do cliente para evitar duplicidade
      * @param contatoDTO ContatoDTO - RequestBody
-     * @return Caso concluiu retorna o Contato, caso contrário retorna null
+     * @param id Long - PathVariable
+     * @return
      */
-    public ContatoDTO criarContato(ContatoDTO contatoDTO){
-        Optional<ContatoEntity> contatoExisteOuNao = contatoRepository.findByNome(contatoDTO.getNome());
-        if(contatoExisteOuNao.isEmpty()){
-            ContatoEntity novoContato = contatoMapper.map(contatoDTO);
-            novoContato = contatoRepository.save(novoContato);
-            return contatoMapper.map(novoContato);
+    public ContatoDTO criarContato(ContatoDTO contatoDTO, Long id){
+        Optional<ClienteEntity> clienteExisteOuNao = clienteRepository.findById(id);
+        if(clienteExisteOuNao.isPresent()){
+            Optional<ContatoEntity> contatoExisteOuNao = contatoRepository.findByValorAndClienteId(contatoDTO.getValor(), id);
+            if(contatoExisteOuNao.isEmpty()){
+                ContatoEntity novoContato = contatoMapper.map(contatoDTO);
+                novoContato.setCliente(new ClienteEntity());
+                novoContato.getCliente().setId(id);
+                novoContato = contatoRepository.save(novoContato);
+                return contatoMapper.map(novoContato);
+            }
+            return null;
         }
         return null;
     }
@@ -57,9 +68,6 @@ public class ContatoService {
         ContatoEntity contatoParaAlterar = contatoRepository.findById(id).orElse(null);
 
         if(contatoParaAlterar != null){
-            if(contatoDTO.getNome() != null){
-                contatoParaAlterar.setNome(contatoDTO.getNome());
-            }
 
             if(contatoDTO.getValor() != null){
                 contatoParaAlterar.setValor(contatoDTO.getValor());

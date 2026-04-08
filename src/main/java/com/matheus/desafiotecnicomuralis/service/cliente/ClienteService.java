@@ -29,8 +29,26 @@ public class ClienteService {
                 .collect(Collectors.toList());
     }
 
+    public ClienteDTO listarClientePorId(Long id){
+        ClienteEntity clientePorId = clienteRepository.findById(id).orElse(null);
+
+        if(clientePorId != null){
+            return clienteMapper.map(clientePorId);
+        }
+        return null;
+    }
+
+    public ClienteDTO listarClientePorCPF(String cpf){
+        ClienteEntity clientePorCPF = clienteRepository.findByCpf(cpf).orElse(null);
+
+        if(clientePorCPF != null){
+            return clienteMapper.map(clientePorCPF);
+        }
+        return null;
+    }
+
     public ClienteDTO criarCliente(ClienteDTO clienteDTO){
-        Optional<ClienteDTO> clienteExisteOuNao = clienteRepository.findByCpf(clienteDTO.getCpf());
+        Optional<ClienteEntity> clienteExisteOuNao = clienteRepository.findByCpf(clienteDTO.getCpf());
         if(clienteExisteOuNao.isEmpty()){
             ClienteEntity novoCliente = clienteMapper.map(clienteDTO);
             novoCliente = clienteRepository.save(novoCliente);
@@ -66,6 +84,10 @@ public class ClienteService {
 
     public boolean deletarCliente(Long id){
         Optional<ClienteEntity> clienteExisteOuNao = clienteRepository.findById(id);
-
+        if(clienteExisteOuNao.isPresent()){
+            clienteRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

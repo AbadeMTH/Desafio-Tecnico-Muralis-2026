@@ -20,9 +20,6 @@ public class ContatoEntity {
     @Column(nullable = false)
     private String tipo;
 
-    @Column(nullable = false, name = "nome_contato")
-    private String nome;
-
     @Column(nullable = false)
     private String valor;
 
