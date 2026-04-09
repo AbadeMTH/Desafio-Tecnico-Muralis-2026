@@ -39,7 +39,6 @@ public class ClienteService {
      * @param clienteDTO ClienteDTO - RequestBody
      * @return ClienteDTO
      */
-    //TODO: trocar a filtragem pelo CPF RF05
     public ClienteDTO listarClienteCPF(ClienteDTO clienteDTO){
         ClienteEntity clientePorCPF = clienteRepository.findByCpf(clienteDTO.getCpf()).orElse(null);
 

@@ -1,5 +1,6 @@
 package com.matheus.desafiotecnicomuralis.entity.contato;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.matheus.desafiotecnicomuralis.entity.cliente.ClienteEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,5 +28,6 @@ public class ContatoEntity {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
+    @JsonIgnore
     private ClienteEntity cliente;
 }
