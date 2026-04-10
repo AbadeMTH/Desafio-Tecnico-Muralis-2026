@@ -83,27 +83,36 @@
 - Spring Data JPA
 - MySQL Driver
 - Spring Boot DevTools
+- Swagger
 
 ## Instrução para Instalação e Execução
 
 1. Baixe e instale o Docker: https://www.docker.com/get-started/
-2. Clone o repositório através do CMD em uma pasta de sua preferência (ou baixe o arquivo .ZIP):
+2. Clone o repositório através do prompt de comando (CMD ou outro) em uma pasta de sua preferência (ou baixe o arquivo .ZIP):
    ```git
    git clone https://github.com/AbadeMTH/Desafio-Tecnico-Muralis-2026.git
    ````
-3. Abra seu Docker
-4. Abra o CMD no caminho raiz de onde clonou o projeto
-5. Rode o comando:
+3. Abra o projeto no seu editor de código de preferência (recomendo IntelliJ IDEA)
+4. Na raiz do projeto, ```Desafio-Tecnico-Muralis-2026/```, crie um arquivo com nome ```.env```
+5. Dentro desse arquivo, defina as variáveis de ambiente necessárias:
+    ```text
+    MYSQL_DOCKER_USER=root
+    MYSQL_DOCKER_DB=jdbc:mysql://database:3306/agenda
+   ```
+6. Salve o arquivo
+7. Abra seu Docker
+8. Abra o prompt de comando (CMD ou outro) no caminho raiz de onde clonou o projeto, por exemplo: ```C:\Users\muralis\Desafio-Tecnico-Muralis-2026```
+9. Rode o comando:
     ```docker
     docker-compose up --build
    ```
-6. Aguarde o Docker subir a imagem, pode levar algumas tentativas
-7. Após o docker-compose for conclúido acesse a URL no navegador: http://localhost:8080/index.html
-8. Caso queira finalizar o projeto, no CMD que rodou o comando do docker, pressione simultaneamente as teclas:
-    ```text
-    CTRL + c
-   ```
-9. OBSERVAÇÃO: O MySQL está mapeado para a porta 3306, caso deseje acessar o banco de dados localmente
+10. Aguarde o Docker subir a imagem, pode levar algumas tentativas
+11. Após o docker-compose ser concluído, acesse a URL no navegador: http://localhost:8080
+12. Para visualização da documentação dos end-points gerada pelo Swagger, acesse a URL no navegador: http://localhost:8080/swagger-ui.html
+12. Caso queira finalizar o projeto, no prompt de comando (CMD ou outro) que rodou o comando do docker, pressione simultaneamente as teclas:
+    ```CTRL + C```
+
+13. **OBSERVAÇÃO: O MySQL está mapeado para a porta 3306, caso deseje acessar o banco de dados localmente**
    
 ## Checklist de Implementação
 - Cadastro, leitura, edição e deleção de Clientes ✅
