@@ -1,0 +1,30 @@
+services:
+  backend:
+    build: ./
+    ports:
+      - "8080:8080"
+    restart: always
+    networks:
+      - private-network
+    environment:
+      SPRING_DATASOURCE_URL: ${MYSQL_DOCKER_DB}
+      SPRING_DATASOURCE_USERNAME: ${MYSQL_DOCKER_USER}
+    depends_on:
+      - database
+  database:
+    image: mysql:8
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: agenda
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+    networks:
+      - private-network
+    volumes:
+      - mysql-data:/var/lib/mysql
+networks:
+  private-network:
+    driver: bridge
+volumes:
+  mysql-data:
