@@ -11,10 +11,11 @@
   - Java e  SpringBoot
 - Banco de Dados
   - MySQL
+- Docker
 
-#### Para garantir que o projeto rode facilmente em qualquer máquina sem grande problemas decidi utilizar o docker para resolver esse problema.
+#### Para garantir que o projeto rode facilmente em qualquer máquina sem grandes dificuldades decidi utilizar o docker para resolver esse problema.
 
-#### Na arquitetura do back-end, utilizei uma arquitetura em camadas para melhor organizar o código e separar as responsabilidades da API
+#### Na arquitetura do back-end, utilizei uma arquitetura em camadas para melhor organização do código e separar as responsabilidades da API
 
 ## Estrutura de Pastas
 ```text
@@ -124,10 +125,10 @@
 
 ## Uso de IA no Desenvolvimento
 
-Durante o desenvolvimento do back-end, pouquissimas vezes tive de recorrer a utilização da IA (ChatGPT e Gemini).
-Tentei utilizar somente de meu conhecimento, que visto que comecei meus estudos em Java e SpringBoot recentemente, são baixos.
+Durante o desenvolvimento do back-end, pouquíssimas vezes tive de recorrer a utilização da IA.
+Tentei utilizar somente de meu conhecimento, que se mostrou não suficiente ao tentar implementar o end point de PATCH.
 
-Utilizei para aprender sobre o método http PATCH, que ainda não tinha tido contado, e após compreender, pude tentar implementar por conta própria.
-Além disso, tive alguns problemas na hora de dockerizar a aplicação, mas que com muio prompt, consegui entender e corrigir.
+Utilizei para aprender sobre o método http PATCH, que ainda não tinha tido contato, e após compreender, pude tentar implementar por conta própria.
+Além disso, tive alguns problemas na hora de dockerizar a aplicação, mas que com muitas tentativas, consegui entender e corrigir.
 
-Já no front-end, que não é nem um pouco meu forte, o GitHub Copilot foi um grande amigo, nunca tive muito contato com manipulação de DOM, então ele me guiou em boa parte do desenvolvimento do front, mas sempre que aceitava uma sugestão, eu parava para ler o código, entender e ver se fazia sentido.
+Já no front-end, que não é nem um pouco meu forte, o GitHub Copilot foi um grande amigo. Nunca tive muito contato com manipulação de DOM, então ele me guiou em boa parte do desenvolvimento do front, mas sempre que aceitava uma sugestão, eu parava para ler o código, entender e ver se fazia sentido.
