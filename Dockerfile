@@ -1,6 +1,13 @@
+FROM maven:3.9-eclipse-temurin-25 AS builder
+WORKDIR /build
+COPY pom.xml .
+RUN mvn dependency:go-offline
+COPY src ./src
+RUN mvn clean package -DskipTests
+
 FROM eclipse-temurin:25
 LABEL maintainer="abade.mth@gmail.com"
 WORKDIR /app
-COPY target/DesafioTecnicoMuralis2026-0.0.1-SNAPSHOT.jar /app/agenda.jar
-ENTRYPOINT ["java", "-jar", "agenda.jar"]
+COPY --from=builder /build/target/app.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
 EXPOSE 8080
