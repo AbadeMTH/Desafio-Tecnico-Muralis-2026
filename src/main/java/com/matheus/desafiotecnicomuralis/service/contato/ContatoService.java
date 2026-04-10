@@ -64,12 +64,11 @@ public class ContatoService {
 
     /**
      * Altera um contato CASO EXISTA, verifica existência pelo id
-     * @param id Long - PathVariable
      * @param contatoDTO ContatoDTO - RequestBody
      * @return Caso alterou com sucesso retorna o Contato, caso contrário retorna null
      */
-    public ContatoDTO alterarContato(Long id, ContatoDTO contatoDTO){
-        ContatoEntity contatoParaAlterar = contatoRepository.findById(id).orElse(null);
+    public ContatoDTO alterarContato(ContatoDTO contatoDTO){
+        ContatoEntity contatoParaAlterar = contatoRepository.findById(contatoDTO.getId()).orElse(null);
 
         if(contatoParaAlterar != null){
 
@@ -93,13 +92,14 @@ public class ContatoService {
 
     /**
      * Deleta um contato pelo id CASO EXISTA, verifica existência pelo id
-     * @param id Long - PathVariable
+     * @param clienteId Long - PathVariable
+     * @param contatoDTO ContatoDTO - RequestBody
      * @return True se deletou, false se não deletou
      */
-    public boolean deletarContato(Long id){
-        Optional<ContatoEntity> contatoExisteOuNao = contatoRepository.findById(id);
+    public boolean deletarContato(Long clienteId, ContatoDTO contatoDTO){
+        Optional<ContatoEntity> contatoExisteOuNao = contatoRepository.findByIdAndClienteId(contatoDTO.getId(), clienteId);
         if(contatoExisteOuNao.isPresent()){
-            contatoRepository.deleteById(id);
+            contatoRepository.deleteById(contatoDTO.getId());
             return true;
         }
         return false;

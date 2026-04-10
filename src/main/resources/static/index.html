@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda S.A</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Agenda S.A</h1>
+        </header>
+        <main>
+            <section class="clientes-section">
+                <p class="clientes-titulo">Clientes</p>
+                <button onclick="abrirModalNovoCliente()" id="btnNovoCliente">+ Novo Cliente</button>
+            </section>
+            <section class="pesquisa-section">
+                <input maxlength="14" id="cpf-input" type="text" placeholder="Pesquisar por CPF">
+                <button onclick="buscarClientePorCPF(event)">Pesquisar</button>
+            </section>
+            <section class="lista-clientes-section">
+
+            </section>
+        </main>
+    </div>
+
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Novo Cliente</h2>
+            <form onsubmit="cadastrarCliente(event)">
+                <div class="input-field">
+                    <label for="nome">Nome:</label>
+                    <input placeholder="Seu nome completo" type="text" id="nome" name="nome" required>
+                </div>
+
+                <div class="input-field">
+                    <label for="cpf-input-modal">CPF:</label>
+                    <input minlength="14" maxlength="14" id="cpf-input-modal" type="text" placeholder="Seu CPF"
+                        required>
+                </div>
+
+                <div class="input-field">
+                    <label for="data_nascimento">Data de Nascimento:</label>
+                    <input placeholder="Sua data de nascimento" type="date" id="data_nascimento" name="data_nascimento"
+                        required>
+                </div>
+
+                <div class="input-field">
+                    <label for="endereco">Endereço:</label>
+                    <input placeholder="Seu endereço completo" type="text" id="endereco" name="endereco" required>
+                </div>
+
+                <button id="salvar" type="submit">Salvar</button>
+                <button id="cancelar" onclick="cancelarNovoCliente(event)" class="close-button">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="modal-editar" class="modal hidden">
+        <div class="modal-content">
+            <h2>Editar Cliente</h2>
+            <form onsubmit="editarClienteSalvar(event)">
+                <div class="input-field">
+                    <label for="nome-editar">Nome:</label>
+                    <input placeholder="Seu nome completo" type="text" id="nome-editar" name="nome-editar" required>
+                </div>
+
+                <div class="input-field">
+                    <label for="cpf-input-modal-editar">CPF:</label>
+                    <input disabled maxlength="14" id="cpf-input-modal-editar" type="text" placeholder="Seu CPF"
+                        required>
+                </div>
+
+                <div class="input-field">
+                    <label for="data_nascimento-editar">Data de Nascimento:</label>
+                    <input disabled placeholder="Sua data de nascimento" type="date" id="data_nascimento-editar"
+                        name="data_nascimento-editar" required>
+                </div>
+
+                <div class="input-field">
+                    <label for="endereco-editar">Endereço:</label>
+                    <input placeholder="Seu endereço completo" type="text" id="endereco-editar" name="endereco-editar"
+                        required>
+                </div>
+
+                <button id="salvar-editar" type="submit">Salvar</button>
+                <button onclick="cancelarEditarCliente(event)" id="cancelar-editar"
+                    class="close-button">Cancelar</button>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

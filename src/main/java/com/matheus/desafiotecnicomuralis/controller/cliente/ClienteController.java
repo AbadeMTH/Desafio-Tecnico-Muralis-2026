@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://127.0.0.1:5500")
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
@@ -38,7 +37,7 @@ public class ClienteController {
         if(clienteExisteOuNao != null){
             return ResponseEntity.ok("Cliente criado");
         }
-        return ResponseEntity.status(HttpStatus.FOUND).body("Cliente ja existente com esse CPF");
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("Cliente ja existente com esse CPF");
     }
 
     @PatchMapping("/alterar/{id}")

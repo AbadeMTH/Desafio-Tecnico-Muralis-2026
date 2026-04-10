@@ -1,0 +1,245 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
+
+header,
+.clientes-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
+
+.clientes-section {
+    margin-bottom: 1.75rem;
+}
+
+.clientes-section button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    border-width: 0px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.clientes-section button:hover {
+    background-color: #0056b3;
+}
+
+main {
+    flex: 1;
+    background-color: #f0f0f0;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
+}
+
+.pesquisa-section {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.75rem;
+}
+
+.pesquisa-section input {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    border-width: 0px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pesquisa-section button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    border-width: 0px;
+    background-color: #6c757d;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pesquisa-section button:hover {
+    background-color: #5a6268;
+}
+
+.lista-clientes-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.cliente-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.cliente-item {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.cliente-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.cliente-actions button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    border-width: 0px;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cliente-actions button:hover {
+    background-color: #218838;
+}
+
+.cliente-actions button.excluir {
+    background-color: #dc3545;
+}
+
+.cliente-actions button.excluir:hover {
+    background-color: #c82333;
+}
+
+.cliente-actions button.editar {
+    background-color: #ffc107;
+}
+
+.cliente-actions button.editar:hover {
+    background-color: #e0a800;
+}
+
+.clientes-titulo {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hidden {
+    display: none;
+}
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.input-field input {
+    padding: 0.5rem;
+    border-radius: 10px;
+    border-width: 0px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.input-field input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.input-field label {
+    font-weight: bold;
+    color: #333;
+}
+
+#cancelar,
+#cancelar-editar {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    border-width: 0px;
+    background-color: #6c757d;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#salvar,
+#salvar-editar {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    border-width: 0px;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+@media (max-width: 900px) {
+    .lista-clientes-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .cliente-container {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+    }
+    .cliente-actions {
+        margin-top: 1rem;
+    }
+    p {
+        font-size: 0.8rem;
+    }
+}

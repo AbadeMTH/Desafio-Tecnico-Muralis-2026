@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://127.0.0.1:5500")
 @RestController
 @RequestMapping("/clientes/{clienteId}/contatos")
 public class ContatoController {
@@ -27,14 +26,14 @@ public class ContatoController {
     public ResponseEntity<?> criarContato(@RequestBody ContatoDTO contatoDTO, @PathVariable Long clienteId){
         ContatoDTO contatoExisteOuNao = contatoService.criarContato(contatoDTO, clienteId);
         if(contatoExisteOuNao != null){
-            return ResponseEntity.status(HttpStatus.CREATED).body("Criado");
+            return ResponseEntity.ok("Criado");
         }
-        return ResponseEntity.status(HttpStatus.FOUND).body("Contato ja existe ou cliente não existe");
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("Contato ja existe ou cliente não existe");
     }
 
     @PatchMapping("/alterar")
-    public ResponseEntity<?> alterarContato(@PathVariable Long clienteId, @RequestBody ContatoDTO contatoDTO){
-        ContatoDTO contato = contatoService.alterarContato(clienteId, contatoDTO);
+    public ResponseEntity<?> alterarContato(@RequestBody ContatoDTO contatoDTO){
+        ContatoDTO contato = contatoService.alterarContato(contatoDTO);
         if(contato != null){
             return ResponseEntity.ok(contato);
         }
@@ -42,8 +41,8 @@ public class ContatoController {
     }
 
     @DeleteMapping("/deletar")
-    public ResponseEntity<?> deletarContato(@PathVariable Long clienteId){
-        boolean contatoExisteOuNao = contatoService.deletarContato(clienteId);
+    public ResponseEntity<?> deletarContato(@PathVariable Long clienteId, @RequestBody ContatoDTO contatoDTO){
+        boolean contatoExisteOuNao = contatoService.deletarContato(clienteId, contatoDTO);
         if(contatoExisteOuNao){
             return ResponseEntity.ok("Contato deletado");
         }

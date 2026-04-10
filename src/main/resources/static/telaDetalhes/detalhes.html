@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda S.A</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Agenda S.A</h1>
+        </header>
+        <main>
+            <section class="voltar-section">
+                <button class="voltar" onclick="window.location.href='../index.html'">Voltar</button>
+            </section>
+            <section class="detalhes-section">
+                <div class="detalhes-cliente">
+                    <div class="header-detalhes">
+                        <div class="icone-nome">
+                            <h2 id="nome-cliente"></h2>
+                        </div>
+                        <div class="botoes">
+                            <button onclick="editarCliente()" id="editar-cliente">Editar</button>
+                            <button onclick="excluirCliente()" id="excluir-cliente">Excluir</button>
+                        </div>
+                    </div>
+                    <div class="body-detalhes">
+                        <p><strong>CPF:</strong> <span id="cpf-cliente"></span></p>
+                        <p><strong>Data de Nascimento:</strong> <span id="data-nascimento-cliente"></span></p>
+                        <p><strong>Endereço:</strong> <span id="endereco-cliente"></span></p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="contatos-section">
+                <div class="contatos-container">
+                    <div class="contatos-header">
+                        <h3 id="qntContatos"></h3>
+                        <button onclick="adicionarContato()" id="adicionar-contato">+ Adicionar Contato</button>
+                    </div>
+                    <section id="lista-contatos">
+
+                    </section>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <div id="modal-editar" class="modal hidden">
+        <div class="modal-content">
+            <h2>Editar Cliente</h2>
+            <form onsubmit="editarClienteSalvar(event)">
+                <div class="input-field">
+                    <label for="nome-editar">Nome:</label>
+                    <input placeholder="Seu nome completo" type="text" id="nome-editar" name="nome-editar" required>
+                </div>
+
+                <div class="input-field">
+                    <label for="cpf-input-modal-editar">CPF:</label>
+                    <input disabled maxlength="14" id="cpf-input-modal-editar" type="text" placeholder="Seu CPF">
+                </div>
+
+                <div class="input-field">
+                    <label for="data_nascimento-editar">Data de Nascimento:</label>
+                    <input disabled placeholder="Sua data de nascimento" type="date" id="data_nascimento-editar"
+                        name="data_nascimento-editar" required>
+                </div>
+
+                <div class="input-field">
+                    <label for="endereco-editar">Endereço:</label>
+                    <input placeholder="Seu endereço completo" type="text" id="endereco-editar" name="endereco-editar"
+                        required>
+                </div>
+
+                <button id="salvar-editar" type="submit">Salvar</button>
+                <button onclick="cancelarEditarCliente(event)" id="cancelar-editar"
+                    class="close-button">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="modal-criar-contato" class="modal hidden">
+        <div class="modal-content">
+            <h2>Novo Contato</h2>
+            <form onsubmit="cadastrarContato(event)" id="novo-contato-form">
+                <div class="input-field">
+                    <label for="tipo">Tipo:</label>
+                    <select id="tipo">
+                        <option selected value="Telefone">Telefone</option>
+                        <option value="E-mail">E-mail</option>
+                    </select>
+                </div>
+
+                <div id="valor-container" class="input-field">
+
+                </div>
+
+                <div class="input-field">
+                    <label for="observacao">Observação</label>
+                    <input placeholder="Sua observação" type="text" id="observacao" name="observacao">
+                </div>
+                <button id="salvar" type="submit">Salvar</button>
+                <button id="cancelar" onclick="cancelarNovoContato(event)" class="close-button">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="modal-editar-contato" class="modal hidden">
+        <div class="modal-content">
+            <h2>Editar Contato</h2>
+            <form onsubmit="editarContatoSalvar(event)">
+                <div class="input-field">
+                    <label for="tipo-editar">Tipo:</label>
+                    <select id="tipo-editar">
+                        <option selected value="Telefone">Telefone</option>
+                        <option value="E-mail">E-mail</option>
+                    </select>
+                </div>
+
+                <div id="valor-container-editar" class="input-field">
+
+                </div>
+
+                <div class="input-field">
+                    <label for="observacao-editar">Observação</label>
+                    <input placeholder="Sua observação" type="text" id="observacao-editar" name="observacao">
+                </div>
+                <button id="salvar" type="submit">Salvar</button>
+                <button id="cancelar" onclick="cancelarEditarContato(event)" class="close-button">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

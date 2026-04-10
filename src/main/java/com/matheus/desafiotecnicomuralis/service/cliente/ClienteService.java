@@ -1,9 +1,7 @@
 package com.matheus.desafiotecnicomuralis.service.cliente;
 
 import com.matheus.desafiotecnicomuralis.dto.cliente.ClienteDTO;
-import com.matheus.desafiotecnicomuralis.dto.contato.ContatoDTO;
 import com.matheus.desafiotecnicomuralis.entity.cliente.ClienteEntity;
-import com.matheus.desafiotecnicomuralis.entity.contato.ContatoEntity;
 import com.matheus.desafiotecnicomuralis.mapper.cliente.ClienteMapper;
 import com.matheus.desafiotecnicomuralis.repository.cliente.ClienteRepository;
 import org.springframework.stereotype.Service;
